@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 956fe132cc6f0a148a1c250a43a5c4b6
+timeCreated: 1508691597
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: SN NeoNoire
+  fontNames:
+  - SN NeoNoire
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
