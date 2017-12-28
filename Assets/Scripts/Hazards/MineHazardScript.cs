@@ -18,8 +18,6 @@ public class MineHazardScript : MonoBehaviour {
     {
         if (other.gameObject.tag == "Player")
         {
-            //TODO: Implement death explosion particle
-
             PlayerHealthScript.Instance.TakeDamage(damageAmt);
             other.GetComponent<Rigidbody>().AddExplosionForce(explosionForce * 100, transform.position, 0.7f);
             Instantiate(explosionPrefab, transform.position, transform.rotation);

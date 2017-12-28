@@ -5,6 +5,8 @@ public class AsteroidHazardScript : MonoBehaviour {
     [SerializeField] float movementSpeed = 5.0f;
     [SerializeField] GameObject brokenObject;
 
+    private float destroyTime = 20.0f;
+
     int dmgAmt = 25;
     Rigidbody rb;
 
@@ -16,6 +18,7 @@ public class AsteroidHazardScript : MonoBehaviour {
     void Start () {
         HazardManagerScript.asteroidCount++;
         transform.LookAt(HazardManagerScript.player.transform);
+        Destroy(gameObject, destroyTime);
 	}
 	
 	void FixedUpdate () {

@@ -377,6 +377,7 @@ MonoBehaviour:
   seekRange: 50
   fireRate: 0.1
   powerLevel: 2
+  seekValueDelta: 10
   baseCircle: {fileID: 4671606112306002}
   turretHead: {fileID: 4887393640520174}
   spawnBarrel: {fileID: 4303098451434020}

@@ -6,14 +6,16 @@ public class BasicTurretScript : MonoBehaviour {
 
     public float health = 100.0f;
 
-    [SerializeField] float seekRange = 5.0f;
+    [SerializeField] float seekRange = 1.0f;
     [SerializeField] float fireRate = 1.5f;
     [SerializeField] float powerLevel = -1.0f;
+    [SerializeField] float seekValueDelta = 5.0f;
     [SerializeField] Transform baseCircle;
     [SerializeField] Transform turretHead;
     [SerializeField] Transform spawnBarrel;
     [SerializeField] GameObject brokenObject;
 
+    private static float seekValue;
     private bool playerDetected = false;
 
     static Transform player;
@@ -34,18 +36,22 @@ public class BasicTurretScript : MonoBehaviour {
         if (powerLevel < 0 || powerLevel > 3)
             Debug.LogError("Invalid Power Level set", gameObject);
 	}
-	
-	void Update ()
+
+    private void Start()
+    {
+        seekValue = seekRange;
+    }
+
+    void Update ()
     {
         AimAtPlayer();
-        if (Vector3.Distance(transform.position, player.position) <= seekRange)
+        if (Vector3.Distance(transform.position, player.position) <= seekValue)
             playerDetected = true;
         else
-            playerDetected = false;
-     
+            playerDetected = false; 
 
        if (canFire && playerDetected && Time.time > lastFire)
-        {
+        { 
             lastFire = Time.time + fireRate;
             GameObject bullet = WeaponPoolerScript.Instance.GetObjectFromPool();
             bullet.transform.position = spawnBarrel.position;
@@ -61,8 +67,6 @@ public class BasicTurretScript : MonoBehaviour {
             Instantiate(brokenObject, transform.position, transform.rotation);
             Destroy(gameObject);
         }
-       
-
 	}
 
     private void OnCollisionEnter(Collision other)
@@ -73,26 +77,28 @@ public class BasicTurretScript : MonoBehaviour {
         }
     }
 
+    private void OnDestroy()
+    {
+        UpdateRange(seekValueDelta);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = (playerDetected) ? Color.red : Color.white;
+        if (player != null)
+            Gizmos.DrawLine(transform.position, player.position);
+    }
+
     private void AimAtPlayer()
     {
         Vector3 destVec = player.position - baseCircle.position;
         destVec.y = baseCircle.position.y;
 
         Vector3 tDestVec = player.position - turretHead.position;
-
         baseCircle.rotation = Quaternion.LookRotation(destVec);
         turretHead.rotation = Quaternion.LookRotation(tDestVec);
     }
-
-    private void OnDrawGizmos()
-    {
-        //Gizmos.DrawWireSphere(transform.position, seekRadius);
-        //Gizmos.DrawWireCube(transform.position, Vector3.one * seekRadius);
-        Gizmos.color = (playerDetected) ? Color.red : Color.white;
-        if (player != null)
-            Gizmos.DrawLine(transform.position, player.position);
-    }
-
+    
     IEnumerator DestroyBullet(GameObject _bullet)
     {
         yield return new WaitForSeconds(3.0f);
@@ -104,4 +110,8 @@ public class BasicTurretScript : MonoBehaviour {
         canFire = _canFire;
     }
 
+    private static void UpdateRange(float value)
+    {
+        seekValue += value;
+    }
 }
