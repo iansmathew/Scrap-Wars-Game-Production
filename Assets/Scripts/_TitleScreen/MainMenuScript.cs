@@ -9,6 +9,10 @@ public class MainMenuScript : MonoBehaviour {
     public GameObject mainMenuPanel;
     public GameObject helpMenuPanel;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Confined;
+    }
 
     public void StartButton()
     {
@@ -18,7 +22,6 @@ public class MainMenuScript : MonoBehaviour {
 
     public void HelpButton()
     {
-        Debug.Log("CLICKED");
         //helpMenuPanel.SetActive(true);
         camAnim.SetTrigger("moveToHelp");
     }

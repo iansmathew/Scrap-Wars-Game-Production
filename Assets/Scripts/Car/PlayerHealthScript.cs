@@ -74,6 +74,8 @@ public class PlayerHealthScript : MonoBehaviour {
 
         playerControllerScript = GetComponent<HoverCarControl>();
         playerCurrHealth = playerMaxHealth;
+
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void Update()
