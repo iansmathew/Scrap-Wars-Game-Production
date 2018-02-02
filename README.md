@@ -12,7 +12,7 @@ Scrap Wars is the product of a third semester assignment. The requirements for t
 
 Steps in order to play the game:
  * Clone the repo.
- * Navigate to /build 
+ * Navigate to /unity_build 
  * Run ScrapWars.exe to run the game.
 
 ### Prerequisites
